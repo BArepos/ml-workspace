@@ -1,0 +1,42 @@
+version: "3"
+services:
+  ba-workspace:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile 
+      args:
+        - username=bitanomaly
+        - userid=1000
+    container_name: ba-workspace
+    image: banomaly/ba-workspace:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    ports:
+      - "8888:8888"
+    volumes:
+      - ../:/home/bitanomaly/ba-workspace      
+    command: /opt/conda/envs/tf2/bin/jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser
+  gradiocker:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.gradio      
+    container_name: gradio-server
+    image: banomaly/ba-gradio:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    ports:
+      - "8080:8080"
+    volumes:
+      - /Users/administrador/projects/ba-projs/ml-workspace/docker/:/workspace      
+    #command: /opt/conda/envs/tf2/bin/jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser
+    #deploy:
+    #  resources:
+    #    reservations:
+    #      devices:
+    #      - capabilities: [gpu]

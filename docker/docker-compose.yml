@@ -1,0 +1,23 @@
+version: "3"
+services:
+  ba-workspace:
+    platform: linux/amd64
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile 
+      args:
+        - username=bitanomaly
+        - userid=1000
+    container_name: ba-workspace
+    image: banomaly/ba-workspace:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: 50m
+    ports:
+      - "8888:8888"
+      - "9090:9090"
+    volumes:
+      - ../:/home/bitanomaly/ba-workspace      
+    command: /opt/conda/envs/tf2/bin/jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser
