@@ -1,9 +1,26 @@
 name: ba-env
 channels:
+  - conda-forge
   - defaults
 dependencies:
-  - jupyterlab=4.0.8
-  - python=3.10
+  - jupyterlab=4.0
+  - python=3.9
+  - ipython=8
+  - ipywidgets=8
   - gradio=4.2.0
   - scikit-learn=1.3.2
+  - matplotlib=3.8
+  - pillow=10.1
+  - nbdime=3.1
+  - keras=2.15
+  - graphviz
+  - python-graphviz
+  - setuptools
+  - pip
+  - wheel
+  - ipython_genutils
+  - pip:
+    - tensorflow~=2.15.0
+    - keras-core  
+    - keras-tuner~=1.4.6 
 prefix: /home/vramirez/miniconda/envs/ba-env
